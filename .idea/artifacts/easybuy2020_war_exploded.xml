@@ -8,6 +8,10 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="druid-1.1.9" />
+          <element id="library" level="module" name="JUnit4" module-name="easybuy2020" />
+          <element id="library" level="project" name="mysql-connector-java-5.1.25-bin" />
+          <element id="library" level="project" name="jstl" />
+          <element id="library" level="project" name="standard" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="easybuy2020/web/Web" />
