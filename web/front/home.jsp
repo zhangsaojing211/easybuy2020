@@ -43,6 +43,12 @@
 
     <script type="text/javascript" src="${ctx}/front/js/lrscroll_1.js"></script>
 
+    <%
+      Object obj=request.getAttribute("categoryList");
+      if(obj == null){
+          response.sendRedirect(request.getContextPath()+"/home?action=index");
+      }
+    %>
 
     <title>易买网</title>
 </head>
