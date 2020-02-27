@@ -33,7 +33,7 @@ public abstract class AbstractServlet extends HttpServlet {
                 method = getServletClass().getDeclaredMethod(action, HttpServletRequest.class, HttpServletResponse.class);
                 result = method.invoke(this, request, response);
             }
-            toView(result, request, response);
+            toView(request, response,result);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
             String viewName="404.jsp";
@@ -69,14 +69,14 @@ public abstract class AbstractServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    protected void toView(Object result,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+    protected void toView(HttpServletRequest request,HttpServletResponse response,Object result) throws ServletException, IOException {
         if (!EmptyUtils.isEmpty(result)){
             //判断result是不是json数据，如果不足，则加后缀jsp
             if(result instanceof String){
                 String viewName=result.toString()+".jsp";
                 request.getRequestDispatcher(viewName).forward(request,response);
         }else {//返回的是json数据
-            PrintUtil.write(request,response);
+            PrintUtil.write(result,response);
         }
         }
     }

@@ -18,7 +18,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link type="text/css" rel="stylesheet" href="${ctx}/front/css/style.css" />
     <!--[if IE 6]>
-    <script src="${ctx}/front/js/iepng.js" type="text/javascript"></script>
+    <script src="/front/js/iepng.js" type="text/javascript"></script>
     <script type="text/javascript">
         EvPNG.fix('div, ul, img, li, input, a');
     </script>
@@ -133,7 +133,20 @@
         </span>
         <!--End 所在收货地区 End-->
         <span class="fr">
-        	<span class="fl">你好，请<a href="Login.html">登录</a>&nbsp; <a href="Regist.html" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="#">我的订单</a>&nbsp;|</span>
+        	<span class="fl">
+                <c:if test="${sessionScope.loginUser==null}">
+                你好，请<a href="${ctx}/front/login.jsp">登录</a>&nbsp;
+                <a href="${ctx}/front/Regist.jsp" style="color:#ff4e00;">免费注册</a>&nbsp;
+                |&nbsp;
+                </c:if>
+
+                 <c:if test="${sessionScope.loginUser!=null}">
+                     你好,<a href="#" style="color: #ff4e00">[${sessionScope.loginUser.loginName}]</a>
+                     |<a href="${ctx}/login?action=loginOut" >注销</a>&nbsp;
+                 </c:if>
+
+
+                <a href="#">我的订单</a>&nbsp;|</span>
         	<span class="ss">
             	<div class="ss_list">
                 	<a href="#">收藏夹</a>
