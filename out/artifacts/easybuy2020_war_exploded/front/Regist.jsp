@@ -199,6 +199,7 @@
         //验证邮箱格式
         if(identityCode!=null && identityCode!="" && !checkIdentityCode(identityCode)){
             alert("身份证号格式不正确");
+            showMessage()
             return;
         }
         $.ajax({
@@ -218,11 +219,12 @@
                 address: address
             },
             success: function (json) {
+
                      var result = eval("(" + json + ")");
                      if (result.status == 1) {
                          alert("成功")
                           showMessage(result.message);
-                          window.location.href = contextPath + "/login?action=toLogin";
+
                  } else {
                      alert("失败")
                      showMessage(json.message);

@@ -1,8 +1,13 @@
 package com.buy.web;
 
+import com.buy.dao.news.INewDao;
+import com.buy.entity.News;
 import com.buy.entity.ProductCategory;
+import com.buy.service.news.INewsService;
+import com.buy.service.news.NewsServiceImpl;
 import com.buy.service.product.IProductCategoryService;
 import com.buy.service.product.ProductCategroyServiceImpl;
+import com.buy.utils.ProductCategoryVo;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,18 +36,20 @@ public class HomeServlet extends AbstractServlet {
 //    }
 
     IProductCategoryService productCategoryService;
+    INewsService newsService;
     @Override
     public void init() throws ServletException {
         productCategoryService = new ProductCategroyServiceImpl();
+        newsService=new NewsServiceImpl();
     }
 
     public String index(HttpServletRequest request, HttpServletResponse response)throws Exception{
         //从service层获取数据
-        List<ProductCategory> categoryList = productCategoryService.queryAllProductCategory("0");
-
+        List<ProductCategoryVo> categoryList = productCategoryService.queryAllProductCategory();
+         List<News> newsList=newsService.getAllNewList();
         //存储数据
         request.setAttribute("categoryList",categoryList);
-
+         request.setAttribute("newsList",newsList);
         //页面跳转
         return "/front/home";
 

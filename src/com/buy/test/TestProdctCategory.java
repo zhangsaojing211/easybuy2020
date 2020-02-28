@@ -14,7 +14,7 @@ public class TestProdctCategory {
       @Test
             public void testProductCategory(){
             IProductCategoryService service=new ProductCategroyServiceImpl();
-            List<ProductCategory> productCategories=service.queryAllProductCategory("0");
+            List<ProductCategory> productCategories=service.queryAllProductCategory(0);
             for (ProductCategory category:productCategories) {
                   System.out.println(category.getName());
             }
