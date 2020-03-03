@@ -7,7 +7,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public interface IProductCategoryService {
-    List<ProductCategory> queryAllProductCategory(Integer parentId);
+    List<ProductCategory> queryAllProductCategory(String parentId);
 
     List<ProductCategoryVo> queryAllProductCategory();
 }

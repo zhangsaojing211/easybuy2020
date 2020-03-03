@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryImpl implements IProductCategory {
-
+    Connection conn;
     /**
      * 根据parentId查询所有的分类信息
      * @param parentId
      * @return
      */
     @Override
-    public List<ProductCategory> queryAllProductCategory(Integer parentId) {
+    public List<ProductCategory> queryAllProductCategory(String parentId) {
         List<ProductCategory> productCategories=new ArrayList<ProductCategory>();
         ProductCategory productCategory =null;
 
@@ -32,8 +32,7 @@ public class ProductCategoryImpl implements IProductCategory {
                 sql.append(" and parentid = ?");
             }
             //获取连接
-            Connection conn= DataSourceUtil.getConn();
-            System.out.println(sql);
+            conn= DataSourceUtil.getConn();
             PreparedStatement pstmt=conn.prepareStatement(sql.toString());
             pstmt.setObject(1,parentId);
             ResultSet rs=pstmt.executeQuery();
@@ -50,6 +49,8 @@ public class ProductCategoryImpl implements IProductCategory {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            DataSourceUtil.closeConnection(conn);
         }
         return productCategories;
     }
@@ -63,7 +64,7 @@ public class ProductCategoryImpl implements IProductCategory {
         //查询一级分类的列表
         List<ProductCategoryVo> pc1VoList = new ArrayList<ProductCategoryVo>();
         //查询一级分类
-        List<ProductCategory> pcList = queryAllProductCategory(0);
+        List<ProductCategory> pcList = queryAllProductCategory("0");
         //查询二级分类
         for (ProductCategory productCategory1 : pcList) {
             ProductCategoryVo pc1Vo = new ProductCategoryVo();
@@ -72,7 +73,7 @@ public class ProductCategoryImpl implements IProductCategory {
             List<ProductCategoryVo> pc2VoList = new ArrayList<ProductCategoryVo>();
             //查询二级分类
             List<ProductCategory> pc2List
-                    = queryAllProductCategory(productCategory1.getId());
+                    = queryAllProductCategory(productCategory1.getId().toString());
             for (ProductCategory productCategory2 : pc2List) {
                 ProductCategoryVo pc2Vo = new ProductCategoryVo();
                 pc2Vo.setProductCategory(productCategory2);
@@ -80,7 +81,7 @@ public class ProductCategoryImpl implements IProductCategory {
                 List<ProductCategoryVo> pc3VoList = new ArrayList<ProductCategoryVo>();
                 //查询三级分类
                 List<ProductCategory> pc3List
-                        = queryAllProductCategory(productCategory2.getId());
+                        = queryAllProductCategory(productCategory2.getId().toString());
                 for (ProductCategory productCategory3 : pc3List) {
                     ProductCategoryVo pc3Vo = new ProductCategoryVo();
                     pc3Vo.setProductCategory(productCategory3);

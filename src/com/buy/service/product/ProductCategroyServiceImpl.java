@@ -12,8 +12,8 @@ public class ProductCategroyServiceImpl implements IProductCategoryService{
     private IProductCategory productCategory=new ProductCategoryImpl();
 
     @Override
-    public List<ProductCategory> queryAllProductCategory(Integer parentId) {
-        parentId=0;
+    public List<ProductCategory> queryAllProductCategory(String parentId) {
+        parentId="0";
         return productCategory.queryAllProductCategory(parentId);
     }
 

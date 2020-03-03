@@ -36,6 +36,8 @@ public class NewsDaoImpl extends DataSourceUtil implements INewDao {
             }
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            DataSourceUtil.closeConnection(conn);
         }
         return newsList;
     }
